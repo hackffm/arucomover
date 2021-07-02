@@ -1,0 +1,14 @@
+<html>
+   <head>
+   </head>
+   <body>
+   <dev id="title">{{ title }}</dev>
+     <table>
+       {% for item in items %}
+            <tr>
+                <td>{{ escape(item) }}</td>
+            </tr>
+       {% end %}
+     </table>
+   </body>
+ </html>

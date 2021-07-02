@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>arucodetection</title>
+    <link href="/arucodetection/stylesheets/arucodetection.css" rel="stylesheet"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/arucodetection/images/favicon.ico">
+</head>
+<body>
+    <iframe name="ifrm" id="ifrm" src="/arucodetection/camera.html">Your browser doesn't support iframes and therefore actioncam !</iframe>
+	<!-- Shutdown Button -------------------------------------------------------->
+    <div id="iconLogo">
+		<a href="/"><img src="/arucodetection/images/aruco.svg" /></a>
+	</div>
+	<div id="infoArucoDetection">
+		<table>
+        	<tr>
+				<td><label>IP:</label></td>
+				<td><input type="text" id="infoIP" name="IP" value="{{ ip }}" disabled/></td>
+        		<td><label>Detect:</label></td>
+        		<td><label id="infoDetect"></label></td>
+			</tr>
+      	</table>
+	</div>
+    <script>
+        const lblInfoIP = document.getElementById('infoIP')
+        const lblInfoDetect = document.getElementById('infoDetect')
+        let ws;
+        window.onload = function() {
+            let connection = "ws://" + document.location.host + "/websockets";
+            let ws =  new WebSocket(connection);
+            ws.onmessage = function(msg) { showInfo(msg.data); };
+            ws.onerror = function(evt){ alert ('Websocket failed with ' + evt.data) };
+            ws.onopen = function () { alert ('Websocket connected !') };
+            ws.onclose = function () { alert ('Websocket disconnected !') };
+        }
+        function showInfo(message){
+        	message = JSON.parse(message);
+        	lblInfoDetect.textContent = "ID " + message.detect.id + " on " + message.detect.position;
+        }
+    </script>
+</body>
+</html>

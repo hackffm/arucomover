@@ -1,0 +1,7 @@
+netifaces
+requests
+numpy
+Pillow
+opencv-python
+opencv-contrib-python
+tornado

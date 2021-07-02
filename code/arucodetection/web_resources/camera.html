@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link href="/arucodetection/stylesheets/camera.css" rel="stylesheet"/>
+   </head>
+   <body>
+   <div id="title">Camera</div>
+   <div id="cameraStream"><img src="/camera/stream.jpeg" name="camera"></div>
+   <script>
+       var camera_reload = 100;
+       var camera_mode = "aruco_detection";
+       function ajax_err(request, error) {
+           console.log('ajax_error')
+           console.log(request);
+           console.log(error);
+        }
+        function ajax_ok(data) {
+            console.log('camera handler confirmed:' + data.status);
+        }
+       	function loadNewImage()
+        {
+            let time =  new Date().getTime().toLocaleString().replace(/,/g,"");
+            document.images.camera.src = "/camera/stream.jpeg?time=" + time;
+            if (camera_mode !== "stop"){
+                setTimeout(loadNewImage, camera_reload);
+            }
+        }
+        function sendJson(data) {
+            let r = {
+                url : '/camera',
+                type : 'POST',
+                data : JSON.stringify(data),
+                dataType: 'json',
+                success : ajax_ok,
+                error: ajax_err
+            }
+            $.ajax(r);
+        }
+        loadNewImage();
+   </script>
+   </body>
+</html>

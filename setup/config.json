@@ -1,0 +1,81 @@
+{
+    "arucodetection": {
+        "debug": false,
+        "arucodetection": {
+            "folder_data": "/home/pi/arucodetection/data",
+            "log_file": "arucodetection.log",
+            "log_header": "arucodetection"
+        },
+        "servicerunner": {
+            "idle_time": 600000,
+            "log_file": "servicerunner.log",
+            "log_header": "servicerunner"
+        },
+        "webserver": {
+            "server_port": 9080,
+            "log_file": "webserver.log",
+            "log_header": "webserver"
+        },
+        "input": {
+            "usb_0": 0,
+            "usb_1": 1,
+            "picamera": 99
+        },
+        "default": {
+	      "folder_data": "/home/pi/arucodetection/data",
+          "identify": "1",
+          "log_file": "arucodetection.log",
+          "log_header": "arucodetection",
+          "log_location": "/home/pi/arucodetection/log",
+          "mode": "detect_aruco",
+          "name": "arucodetection",
+          "output": "avi",
+          "recording_location": "/home/pi/arucodetection/recording"
+        },
+        "camera": {
+            "rectangle_thickness": 1,
+            "frame_width": 1280,
+            "capture_duration": 4,
+            "frame_height": 720,
+            "input": "usb_0",
+            "interval": {
+                "repeat": 3,
+                "wait": 5
+            },
+            "name": "default",
+            "mode": {
+                "detect_aruco": "detect_aruco",
+                "stop": "stop"
+            },
+            "rectangle_draw": "True",
+            "text": {
+                "format_time": "%A %Y%m%d%H%M%S",
+                "record": "Record:"
+            }
+        },
+        "ui": {
+            "show_FrameDelta": false,
+            "show_cameraFrame": "True"
+        },
+        "avi": {
+            "file_format_time": "%Y%m%d%H%M%S",
+            "file_extension": ".avi",
+            "frame_rate": 20,
+            "file_name_motion": "motion",
+            "file_name_record": "record",
+            "file_length": 100
+        },
+        "preview": {
+            "file_extension": ".jpeg"
+        },
+        "error": "error",
+        "failed": "failed",
+        "modes": {
+            "detect_aruco": "detect_aruco",
+            "stop": "stop"
+        },
+        "test": {
+            "log_file": "test.log"
+        }
+    }
+}

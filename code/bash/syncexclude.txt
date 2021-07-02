@@ -1,0 +1,6 @@
+.git/*
+node_modules/*
+*.pyc
+__pycache__/
+*$py.class*.pyc
+*~
