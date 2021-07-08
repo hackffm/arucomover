@@ -58,7 +58,7 @@ print('start ' + node_name)
 def cmd_base(arg):
     global state_motor
     global cycle_count
-    speed = [velocity_run,velocity_run]
+    speed = [velocity_stop,velocity_stop]
     if type(arg) != str:
         return
     if arg == "turn_left":
@@ -73,8 +73,10 @@ def cmd_base(arg):
     if arg == "backward":
         speed = [-velocity_run,-velocity_run]
         cycle_count = 0
+    if arg == "stop":
+        speed = [velocity_stop,velocity_stop]
+        cycle_count = 5
     state_motor = speed
-    
     return #cmd_base
 
 
@@ -235,7 +237,7 @@ def cycle_check():
     if btm01.value:
         # we ask here if btm01 pushed as it could be used as kill switch else where
         state_btm01 = btm_pushed
-    
+
     td = cmd_uptime('_')
     if td > cycle_global:
         print(module_name + 'stop')
