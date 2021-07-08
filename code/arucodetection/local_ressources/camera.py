@@ -24,16 +24,7 @@ class Camera:
             self.log(dist)
         self.dist = dist
         self.mtx = mtx
-
-        # must match the real world dimensions
-        ARUCO_DICT = {
-            "DICT_4X4_50": cv2.aruco.DICT_4X4_50,
-            "DICT_5X5_50": cv2.aruco.DICT_5X5_50,
-            "DICT_6X6_50": cv2.aruco.DICT_6X6_50,
-            "DICT_7X7_50": cv2.aruco.DICT_7X7_50,
-            "DICT_ARUCO_ORIGINAL": cv2.aruco.DICT_ARUCO_ORIGINAL,
-        }
-        self.aruco_dict = aruco.Dictionary_get(ARUCO_DICT["DICT_6X6_50"])
+        self.aruco_dict = aruco.Dictionary_get(cv2.aruco.DICT_6X6_50)
         self.parameters = aruco.DetectorParameters_create()
 
     def capture_config(self):
@@ -96,6 +87,8 @@ class Camera:
                             self.m_modus['detect'] = {"id": str(aruco_id), "position": position}
                             if self.debug:
                                 self.log("id:" + str(aruco_id) + " position:" + str(position))
+                else:
+                    self.m_modus['detect'] = {"id": "0", "position": "0,0,0"}
                 self.video_memory_write(frame)
                 time.sleep(0.1)
                 duration -= 1

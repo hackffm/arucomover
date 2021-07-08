@@ -41,8 +41,8 @@ def log(text):
     helper.log_add_text(name, 'main:' + text)
 
 
-def shared_memory_array(name_aditional, hight, width):
-    _name = 'shm_' + name_aditional
+def shared_memory_array(name_additional, hight, width):
+    _name = 'shm_' + name_additional
     a = np.random.rand(hight, width)
     try:
         shm = shared_memory.SharedMemory(name=_name, create=True, size=a.nbytes)
@@ -96,7 +96,7 @@ if __name__ == '__main__':
             infos = helper.infos_self()
             for info in infos:
                 print(info)
-            log('PID arucudetection ' + str(os.getpid()))
+            log('PID arucodetection ' + str(os.getpid()))
             log('PID Webserver ' + str(p2.pid))
 
             # prepare camera
