@@ -768,7 +768,7 @@
         "topic": "",
         "payload": "led13",
         "payloadType": "str",
-        "x": 1010,
+        "x": 1030,
         "y": 500,
         "wires": [
             [
@@ -797,7 +797,7 @@
         "topic": "",
         "payload": "btm01",
         "payloadType": "str",
-        "x": 1010,
+        "x": 1030,
         "y": 540,
         "wires": [
             [
@@ -826,7 +826,7 @@
         "topic": "",
         "payload": "stop",
         "payloadType": "str",
-        "x": 1010,
+        "x": 1030,
         "y": 460,
         "wires": [
             [
@@ -1257,7 +1257,7 @@
         "topic": "",
         "payload": "?",
         "payloadType": "str",
-        "x": 1010,
+        "x": 1030,
         "y": 420,
         "wires": [
             [
@@ -1398,7 +1398,7 @@
         "topic": "",
         "payload": "info:heading",
         "payloadType": "str",
-        "x": 1010,
+        "x": 1030,
         "y": 580,
         "wires": [
             [
@@ -1451,7 +1451,7 @@
         "topic": "",
         "payload": "logger",
         "payloadType": "str",
-        "x": 1010,
+        "x": 1030,
         "y": 620,
         "wires": [
             [
@@ -1785,6 +1785,7 @@
         "id": "b375dce1.1cea08",
         "type": "debug",
         "z": "64e29ca1.f521a4",
+        "d": true,
         "name": "FromBase1",
         "active": true,
         "tosidebar": true,
@@ -1903,7 +1904,7 @@
         "order": 6,
         "width": 10,
         "height": 8,
-        "format": "<div id=\"cameraStream\">\n    <img id=\"cameraImg\" src=\"\" width=\"500\" hight=\"500\" name=\"camera\">\n</div>\n<script>\n(function(scope) {\n    var url = \"http://192.168.1.104:9080/camera/stream.jpeg\";\n    var interval = 100;\n    var timer = null;\n    scope.$watch('msg', function(msg) {\n        if (msg) {\n            if(msg.topic === \"setURL\") url = msg.payload;\n            if(msg.topic === \"setInterval\") {\n                stop();\n                interval = Number(msg.payload);\n                start();\n            }\n            if(msg.topic === \"stop\") stop();\n            if(msg.topic === \"start\") start();\n        }\n    });\n    function start() {\n        if(isNaN(interval) == false && interval > 0) {\n            timer = setInterval(loadNewImage, interval);\n        } else {\n            console.warn(\"interval is valid\");\n        }\n    }\n    function stop() {\n        if(timer) {\n            clearInterval(timer);\n            timer = null;\n        }\n    }\n    function loadNewImage() {\n        if(url) {\n            let time =  new Date().getTime().toLocaleString().replace(/,/g,\"\");\n            $(\"#cameraImg\").attr(\"src\", `${url}?time=${time}`);\n        }\n    }\n\n})(scope);\n</script>",
+        "format": "<div id=\"cameraStream\">\n    <img id=\"cameraImg\" src=\"\" width=\"500\" hight=\"500\" name=\"camera\">\n</div>\n<script>\n(function(scope) {\n    var url = \"http://192.168.1.106:9080/camera/stream.jpeg\";\n    var interval = 100;\n    var timer = null;\n    scope.$watch('msg', function(msg) {\n        if (msg) {\n            if(msg.topic === \"setURL\") url = msg.payload;\n            if(msg.topic === \"setInterval\") {\n                stop();\n                interval = Number(msg.payload);\n                start();\n            }\n            if(msg.topic === \"stop\") stop();\n            if(msg.topic === \"start\") start();\n        }\n    });\n    function start() {\n        if(isNaN(interval) == false && interval > 0) {\n            timer = setInterval(loadNewImage, interval);\n        } else {\n            console.warn(\"interval is valid\");\n        }\n    }\n    function stop() {\n        if(timer) {\n            clearInterval(timer);\n            timer = null;\n        }\n    }\n    function loadNewImage() {\n        if(url) {\n            let time =  new Date().getTime().toLocaleString().replace(/,/g,\"\");\n            $(\"#cameraImg\").attr(\"src\", `${url}?time=${time}`);\n        }\n    }\n\n})(scope);\n</script>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "resendOnRefresh": true,
@@ -2636,7 +2637,7 @@
         "noerr": 0,
         "initialize": "",
         "finalize": "",
-        "x": 980,
+        "x": 1000,
         "y": 380,
         "wires": [
             [
@@ -2665,7 +2666,7 @@
         "topic": "",
         "payload": "uptime",
         "payloadType": "str",
-        "x": 1010,
+        "x": 1030,
         "y": 660,
         "wires": [
             [
@@ -2797,8 +2798,8 @@
         "links": [
             "81d0e89e.a4aac"
         ],
-        "x": 405,
-        "y": 640,
+        "x": 595,
+        "y": 620,
         "wires": [
             [
                 "34266d1c.ff00d2"
@@ -2818,8 +2819,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 720,
-        "y": 640,
+        "x": 870,
+        "y": 620,
         "wires": []
     },
     {
@@ -2827,17 +2828,17 @@
         "type": "function",
         "z": "39299706.687348",
         "name": "RobotControl",
-        "func": "let position = msg.payload;\nconsole.log('Position' + position);\nmsg.payload = \"\";\n\nlet postions = position.split(\",\");\nif (postions[0] > 150){\n    msg.payload = \"turn_left\";\n} else {\n    msg.payload = \"stop\";\n}\nreturn msg;",
+        "func": "let position = msg.payload;\nconsole.log('Position' + position);\nmsg.payload = \"\";\n\n// screen is 640x480\nlet center_h = 320;\nlet center_v = 240;\nlet tolerance = 20;\n//\nlet postions = position.split(\",\");\n\nlet pos_h = postions[0];\nif (pos_h > center_h + tolerance){\n    msg.payload = \"turn_right\";\n}\nif (pos_h < center_h - tolerance){\n    msg.payload = \"turn_left\";\n} \nif (pos_h >= center_h - tolerance &&\n    pos_h <= center_h + tolerance) {\n  msg.payload = \"forward\";\n}\n// if distance to low stop\nlet pos_dist = postions[2];\npos_dist = Math.floor(pos_dist);\nif (pos_dist <  40) {\n    msg.payload = \"stop\";\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
-        "libs": [],
-        "x": 550,
-        "y": 640,
+        "x": 710,
+        "y": 620,
         "wires": [
             [
-                "8efd8fcf.eb578"
+                "8efd8fcf.eb578",
+                "e6902772.608308"
             ]
         ]
     }
