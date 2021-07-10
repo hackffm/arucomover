@@ -1904,7 +1904,7 @@
         "order": 6,
         "width": 10,
         "height": 8,
-        "format": "<div id=\"cameraStream\">\n    <img id=\"cameraImg\" src=\"\" width=\"500\" hight=\"500\" name=\"camera\">\n</div>\n<script>\n(function(scope) {\n    var url = \"http://192.168.1.106:9080/camera/stream.jpeg\";\n    var interval = 100;\n    var timer = null;\n    scope.$watch('msg', function(msg) {\n        if (msg) {\n            if(msg.topic === \"setURL\") url = msg.payload;\n            if(msg.topic === \"setInterval\") {\n                stop();\n                interval = Number(msg.payload);\n                start();\n            }\n            if(msg.topic === \"stop\") stop();\n            if(msg.topic === \"start\") start();\n        }\n    });\n    function start() {\n        if(isNaN(interval) == false && interval > 0) {\n            timer = setInterval(loadNewImage, interval);\n        } else {\n            console.warn(\"interval is valid\");\n        }\n    }\n    function stop() {\n        if(timer) {\n            clearInterval(timer);\n            timer = null;\n        }\n    }\n    function loadNewImage() {\n        if(url) {\n            let time =  new Date().getTime().toLocaleString().replace(/,/g,\"\");\n            $(\"#cameraImg\").attr(\"src\", `${url}?time=${time}`);\n        }\n    }\n\n})(scope);\n</script>",
+        "format": "<div id=\"cameraStream\">\n    <img id=\"cameraImg\" src=\"\" width=\"500\" hight=\"500\" name=\"camera\">\n</div>\n<script>\n(function(scope) {\n    var url = \"http://threewheelspi.fritz.box:9080/camera/stream.jpeg\";\n    var interval = 100;\n    var timer = null;\n    scope.$watch('msg', function(msg) {\n        if (msg) {\n            if(msg.topic === \"setURL\") url = msg.payload;\n            if(msg.topic === \"setInterval\") {\n                stop();\n                interval = Number(msg.payload);\n                start();\n            }\n            if(msg.topic === \"stop\") stop();\n            if(msg.topic === \"start\") start();\n        }\n    });\n    function start() {\n        if(isNaN(interval) == false && interval > 0) {\n            timer = setInterval(loadNewImage, interval);\n        } else {\n            console.warn(\"interval is valid\");\n        }\n    }\n    function stop() {\n        if(timer) {\n            clearInterval(timer);\n            timer = null;\n        }\n    }\n    function loadNewImage() {\n        if(url) {\n            let time =  new Date().getTime().toLocaleString().replace(/,/g,\"\");\n            $(\"#cameraImg\").attr(\"src\", `${url}?time=${time}`);\n        }\n    }\n\n})(scope);\n</script>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "resendOnRefresh": true,
@@ -2334,23 +2334,6 @@
         ]
     },
     {
-        "id": "99411a71.2a84e8",
-        "type": "debug",
-        "z": "64e29ca1.f521a4",
-        "name": "Notification",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1190,
-        "y": 200,
-        "wires": []
-    },
-    {
         "id": "a655bca4.cf0f48",
         "type": "function",
         "z": "64e29ca1.f521a4",
@@ -2416,7 +2399,7 @@
         "type": "function",
         "z": "64e29ca1.f521a4",
         "name": "ArucoGetID",
-        "func": "let message = msg.payload;\nif (typeof message === 'string'){\n    message = JSON.parse(message);\n}\n\nlet id = message.detect.id;\nlet position = message.detect.position;\nlet distance = position.split(\",\")[2];\n\nmsg = { \"payload\" : position};\nmsg1 = { \"payload\" : \"aruco \" + id + \" in \" + distance + \" cm\" };\nmsg2 = { \"payload\": position};\nreturn [msg, msg1, msg2];",
+        "func": "let message = msg.payload;\nif (typeof message === 'string'){\n    message = JSON.parse(message);\n}\n\nlet id = message.detect.id;\nlet position = message.detect.position;\nlet distance = position.split(\",\")[2];\n\nmsg = { \"payload\" : id};\nmsg1 = { \"payload\" : \"aruco \" + id + \" in \" + distance + \" cm\" };\nmsg2 = { \"payload\": position};\n\nreturn [msg, msg1, msg2];",
         "outputs": 3,
         "noerr": 0,
         "initialize": "",
@@ -2582,7 +2565,7 @@
         "type": "function",
         "z": "64e29ca1.f521a4",
         "name": "ArrayMostCommon",
-        "func": "const arr = msg.payload;\n\nlet arr1 = [];\nfunction add_a(x){ arr1.push(x.toString())}\narr.forEach(add_a)\n\nvar mf = 1;\nvar m = 0;\nvar item;\nfor (var i=0; i<arr1.length; i++)\n{\n        for (var j=i; j<arr1.length; j++)\n        {\n                if (arr1[i] == arr1[j])\n                 m++;\n                if (mf<m)\n                {\n                  mf=m; \n                  item = arr1[i];\n                }\n        }\n        m=0;\n}\n\nmsg.payload = item.split(',');\nreturn msg;",
+        "func": "const arr = msg.payload;\n\nlet arr1 = [];\nfunction add_a(x){ arr1.push(x.toString())}\narr.forEach(add_a)\n\n\nvar mf = 1;\nvar m = 0;\nvar item;\nfor (var i=0; i<arr1.length; i++)\n{\n        for (var j=i; j<arr1.length; j++)\n        {\n                if (arr1[i] == arr1[j])\n                  m++;\n                if (mf<m)\n                {\n                  mf=m; \n                  item = arr1[i];\n                }\n        }\n        m=0;\n}\n\nmsg.payload = item\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2745,8 +2728,7 @@
         "y": 480,
         "wires": [
             [
-                "992a8d40.1f8d3",
-                "99411a71.2a84e8"
+                "992a8d40.1f8d3"
             ],
             [],
             []
@@ -2829,7 +2811,7 @@
         "type": "function",
         "z": "39299706.687348",
         "name": "RobotControl",
-        "func": "let position = msg.payload;\nconsole.log(\"RC payload:\" + position);\nmsg.payload = null;\n\nlet bot = flow.get(\"bot\");\n\nif (bot === \"OFF\"){\n    return;\n}\nif (position === \"0,0,0\"){\n    return;\n}\n\n// screen is 640x480\nlet center_h = 320;\nlet center_v = 240;\nlet tolerance = 20;\n//\nlet postions = position.split(\",\");\n\nlet pos_h = postions[0];\nif (pos_h > center_h + tolerance){\n    msg.payload = \"turn_right\";\n}\nif (pos_h < center_h - tolerance){\n    msg.payload = \"turn_left\";\n} \nif (pos_h >= center_h - tolerance &&\n    pos_h <= center_h + tolerance) {\n  msg.payload = \"forward\";\n}\n// if distance to low or 0 stop\nlet pos_dist = postions[2];\npos_dist = Math.floor(pos_dist);\nif (pos_dist <  40) {\n    msg.payload = \"stop\";\n}\nreturn msg;",
+        "func": "let position = msg.payload;\nconsole.log(\"RC input:\" + position);\nmsg.payload = null;\n\nlet bot = flow.get(\"bot\");\n\nif (bot === \"OFF\"){\n    return;\n}\nif (position === \"0,0,0\"){\n    return;\n}\n\n// screen is 640x480\nlet center_h = 320;\nlet center_v = 240;\nlet tolerance = 20;\n//\nlet postions = position.split(\",\");\n\nlet pos_h = postions[0];\nif (pos_h > center_h + tolerance){\n    msg.payload = \"turn_right\";\n}\nif (pos_h < center_h - tolerance){\n    msg.payload = \"turn_left\";\n} \nif (pos_h >= center_h - tolerance &&\n    pos_h <= center_h + tolerance) {\n  msg.payload = \"forward\";\n}\n// if distance to low or 0 stop\nlet pos_dist = postions[2];\npos_dist = Math.floor(pos_dist);\nif (pos_dist <  40) {\n    msg.payload = \"stop\";\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2838,8 +2820,7 @@
         "y": 620,
         "wires": [
             [
-                "8efd8fcf.eb578",
-                "e6902772.608308"
+                "8efd8fcf.eb578"
             ]
         ]
     }
