@@ -92,7 +92,7 @@ def cmd_id():
 def cmd_btm01(arg):
     global state_btm01
     module_name = node_name + ':btm01:'
-    print(node_name + state_btm01)
+    print(module_name + state_btm01)
     state_btm01 = btm_pushed_not
     cmd_led13(False)
     return
@@ -110,7 +110,7 @@ def cmd_i2c(arg):
     module_name = node_name + ':i2c:'
     while not i2c.try_lock():
         pass
-    print(node_name + " addresses found:", [hex(device_address)for device_address in i2c.scan()])
+    print(module_name + " addresses found:", [hex(device_address)for device_address in i2c.scan()])
     i2c.unlock()
 
 
@@ -161,7 +161,7 @@ def cmd_motor(arg):
         except Exception as e:
             print(module_name + 'exception:' + str(e))
     print(module_name + str(state_motor))
-    return # from cmd_motor
+    return # cmd_motor
 
 
 def cmd_sensors(arg):
@@ -211,7 +211,7 @@ def cmd_timer(arg):
             return
         print(module_name + 'cycle_global:' + str(cycle_global))
     else:
-        print(module_name + 'time_diff:' + str(time_diff()))
+        print(module_name + 'time diff:' + str(cmd_uptime("_")))
     return # time1
 
 
@@ -252,7 +252,7 @@ def cycle_check():
         else:
             cycle_count = cycle_count + 1
     motor_run(state_motor)
-    return #cycle_check
+    return # cycle_check
 
 
 def euler_get_x():
@@ -262,7 +262,7 @@ def euler_get_x():
     se = se.replace(" ","")
     se = se.split(",")[0]
     if se == "None":
-        #catch pesky i2c outages
+        # catch pesky i2c outages
         return
     se = se.split(".")[0]
     se = int(se)
@@ -328,7 +328,7 @@ def serial_receive_cmd():
         elif ch in {10, 13}:          # EOL - try to process
             serial_process_command(cmd_line)
             cmd_line = ''
-    return #receive_serial_cmd
+    return # serial_receive_cmd
 
 
 def time_reset():
