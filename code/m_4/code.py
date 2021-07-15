@@ -40,7 +40,7 @@ node_name = 'base1'
 # defaults
 cmd_line = ""
 cycle_count = 0                # used to count up for cycle_short
-cycle_global = 10000.00        # all commands reset to stop after thiscycle
+cycle_global = 10000.00        # all commands reset to stop after this cycle
 cycle_short = 10               # comands redo or stop after short time
 heading_current = 0
 heading_set = 0
@@ -63,10 +63,10 @@ def cmd_base(arg):
         return
     if arg == "turn_left":
         speed = [velocity_run,-velocity_run]
-        cycle_count = 5
+        cycle_count = 7
     if arg == "turn_right":
         speed = [-velocity_run,velocity_run]
-        cycle_count = 5
+        cycle_count = 7
     if arg == "forward":
         speed = [velocity_run,velocity_run]
         cycle_count = 0
@@ -75,7 +75,7 @@ def cmd_base(arg):
         cycle_count = 0
     if arg == "stop":
         speed = [velocity_stop,velocity_stop]
-        cycle_count = 5
+        cycle_count = 9
     state_motor = speed
     return #cmd_base
 
