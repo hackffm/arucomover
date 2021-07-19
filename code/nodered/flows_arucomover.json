@@ -14,14 +14,6 @@
         "info": ""
     },
     {
-        "id": "1bbdb095.fddb6f",
-        "type": "subflow",
-        "name": "Subflow 1",
-        "info": "",
-        "in": [],
-        "out": []
-    },
-    {
         "id": "c85babe0.c9c6a8",
         "type": "websocket-listener",
         "path": "ws://127.0.0.1:9080/websockets",
@@ -175,16 +167,6 @@
         "collapse": false
     },
     {
-        "id": "9f87623b.450d9",
-        "type": "ui_group",
-        "name": "Info",
-        "tab": "",
-        "order": 4,
-        "disp": true,
-        "width": 5,
-        "collapse": false
-    },
-    {
         "id": "4197f4f3.d2b704",
         "type": "serial-port",
         "serialport": "/dev/ttyACM0",
@@ -212,14 +194,6 @@
         "disp": true,
         "width": "6",
         "collapse": false
-    },
-    {
-        "id": "6d27ff86.fe9bb",
-        "type": "ui_link",
-        "name": "Link 3",
-        "icon": "open_in_browser",
-        "target": "newtab",
-        "order": 3
     },
     {
         "id": "8ed034d4.559dd8",
@@ -416,12 +390,12 @@
         "payloadType": "str",
         "topic": "base1",
         "topicType": "str",
-        "x": 700,
-        "y": 500,
+        "x": 420,
+        "y": 540,
         "wires": [
             [
-                "e6902772.608308",
-                "b1b9f827.2f4dc"
+                "b1b9f827.2f4dc",
+                "e3e100ac.e8c5c8"
             ]
         ]
     },
@@ -488,12 +462,12 @@
         "payloadType": "str",
         "topic": "",
         "topicType": "str",
-        "x": 700,
-        "y": 580,
+        "x": 420,
+        "y": 620,
         "wires": [
             [
-                "e6902772.608308",
-                "831d7ff.052138"
+                "831d7ff.052138",
+                "e3e100ac.e8c5c8"
             ]
         ]
     },
@@ -516,12 +490,12 @@
         "payloadType": "str",
         "topic": "",
         "topicType": "str",
-        "x": 700,
-        "y": 540,
+        "x": 420,
+        "y": 580,
         "wires": [
             [
-                "e6902772.608308",
-                "831d7ff.052138"
+                "831d7ff.052138",
+                "e3e100ac.e8c5c8"
             ]
         ]
     },
@@ -544,12 +518,13 @@
         "payloadType": "str",
         "topic": "base1",
         "topicType": "str",
-        "x": 700,
-        "y": 460,
+        "x": 420,
+        "y": 500,
         "wires": [
             [
                 "e6902772.608308",
-                "b1b9f827.2f4dc"
+                "b1b9f827.2f4dc",
+                "e3e100ac.e8c5c8"
             ]
         ]
     },
@@ -683,8 +658,8 @@
         "topic": "",
         "payload": "true",
         "payloadType": "bool",
-        "x": 75,
-        "y": 80,
+        "x": 55,
+        "y": 100,
         "wires": [
             [
                 "4e5d4e86.69c56",
@@ -714,7 +689,7 @@
         "topic": "",
         "payload": "false",
         "payloadType": "bool",
-        "x": 75,
+        "x": 55,
         "y": 180,
         "wires": [
             [
@@ -852,8 +827,8 @@
         "topic": "",
         "payload": "true",
         "payloadType": "bool",
-        "x": 595,
-        "y": 460,
+        "x": 315,
+        "y": 500,
         "wires": [
             [
                 "f3161e7e.2937e8"
@@ -882,8 +857,8 @@
         "topic": "",
         "payload": "true",
         "payloadType": "bool",
-        "x": 595,
-        "y": 500,
+        "x": 315,
+        "y": 540,
         "wires": [
             [
                 "acc5c45.4d46638"
@@ -912,8 +887,8 @@
         "topic": "",
         "payload": "true",
         "payloadType": "bool",
-        "x": 595,
-        "y": 580,
+        "x": 315,
+        "y": 620,
         "wires": [
             [
                 "21f11244.8df996"
@@ -942,8 +917,8 @@
         "topic": "",
         "payload": "true",
         "payloadType": "bool",
-        "x": 595,
-        "y": 540,
+        "x": 315,
+        "y": 580,
         "wires": [
             [
                 "9972ba2.c71eac8"
@@ -1128,7 +1103,7 @@
         "noerr": 0,
         "initialize": "",
         "finalize": "",
-        "x": 170,
+        "x": 190,
         "y": 260,
         "wires": [
             [
@@ -2729,8 +2704,8 @@
         "links": [
             "81d0e89e.a4aac"
         ],
-        "x": 375,
-        "y": 620,
+        "x": 315,
+        "y": 660,
         "wires": [
             [
                 "34266d1c.ff00d2"
@@ -2747,12 +2722,12 @@
         "noerr": 0,
         "initialize": "",
         "finalize": "",
-        "x": 710,
-        "y": 620,
+        "x": 430,
+        "y": 660,
         "wires": [
             [
-                "e6902772.608308",
-                "831d7ff.052138"
+                "831d7ff.052138",
+                "e3e100ac.e8c5c8"
             ]
         ]
     },
@@ -2771,8 +2746,8 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 855,
-        "y": 480,
+        "x": 575,
+        "y": 520,
         "wires": [
             [
                 "beea2a70.635df8"
@@ -2795,8 +2770,8 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 855,
-        "y": 540,
+        "x": 575,
+        "y": 580,
         "wires": [
             [
                 "beea2a70.635df8"
@@ -2805,13 +2780,22 @@
         "l": false
     },
     {
-        "id": "740aa58b.0227dc",
-        "type": "comment",
+        "id": "e3e100ac.e8c5c8",
+        "type": "function",
         "z": "39299706.687348",
-        "name": "handle manual mode if bot is off",
-        "info": "",
-        "x": 410,
-        "y": 520,
-        "wires": []
+        "name": "Off?",
+        "func": "let bot = global.get(\"bot\");\nif (bot !== \"OFF\"){\n    return msg\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 580,
+        "wires": [
+            [
+                "e6902772.608308"
+            ]
+        ]
     }
 ]
