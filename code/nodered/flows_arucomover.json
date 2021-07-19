@@ -558,7 +558,7 @@
         "type": "function",
         "z": "39299706.687348",
         "name": "OnOff",
-        "func": "let state = flow.get(\"bot_state\")\nlet payload = msg.payload;\n\nmsg.payload = \"STOP\"\nmsg_grey = { \n        \"colour\": \"grey\"\n    }\n\nif (payload === true){\n    if (state === \"ON\"){\n        return;\n    }\n    flow.set(\"bot\", \"MANUAL\");\n    flow.set(\"bot_state\", \"ON\");\n    msg1 = { \n        \"colour\": \"green\", \n    }\n    return [msg,msg1,msg_grey];\n}\nif (payload === false) {\n    if (state === \"OFF\"){\n        return;\n    }\n    flow.set(\"bot\",\"OFF\");\n    flow.set(\"bot_state\", \"OFF\");\n    msg1 = { \"colour\": \"red\"}\n    return [msg,msg_grey,msg1];\n}",
+        "func": "let state = flow.get(\"bot_state\")\nlet payload = msg.payload;\n\nmsg.payload = \"STOP\"\nmsg_grey = { \n        \"colour\": \"grey\"\n    }\n\nif (payload === true){\n    if (state === \"ON\"){\n        return;\n    }\n    global.set(\"bot\", \"MANUAL\");\n    global.set(\"bot_state\", \"ON\");\n    msg1 = { \n        \"colour\": \"green\", \n    }\n    return [msg,msg1,msg_grey];\n}\nif (payload === false) {\n    if (state === \"OFF\"){\n        return;\n    }\n    global.set(\"bot\",\"OFF\");\n    global.set(\"bot_state\", \"OFF\");\n    msg1 = { \"colour\": \"red\"}\n    return [msg,msg_grey,msg1];\n}",
         "outputs": 3,
         "noerr": 0,
         "initialize": "",
@@ -986,7 +986,7 @@
         "type": "function",
         "z": "39299706.687348",
         "name": "Splitt",
-        "func": "let message = msg.payload;\n\nm_left = 0;\nm_right = 0;\nlet bot = flow.get(\"bot\");\n\nif (bot === \"MANUAL\"){\n    message = message.split('motor:')[1];\n    m_left = message.split(',')[0];\n    m_right = message.split(',')[1];\n}\n\nlet msg1 = { payload: m_left};\nlet msg2 = { payload: m_right };\n\nreturn [msg1,msg2];",
+        "func": "let message = msg.payload;\n\nm_left = 0;\nm_right = 0;\nlet bot = global.get(\"bot\");\n\nif (bot === \"MANUAL\"){\n    message = message.split('motor:')[1];\n    m_left = message.split(',')[0];\n    m_right = message.split(',')[1];\n}\n\nlet msg1 = { payload: m_left};\nlet msg2 = { payload: m_right };\n\nreturn [msg1,msg2];",
         "outputs": 2,
         "noerr": 0,
         "initialize": "",
@@ -1007,7 +1007,7 @@
         "type": "function",
         "z": "39299706.687348",
         "name": "TextToSpeed",
-        "func": "let command = msg.payload;\nlet payload = \"\";\n\nif (command.startsWith(\"motor:\") === true){\n    payload = command\n}\nif(command === \"STOP\"){\n    payload = \"motor:0,0\";\n}\nif( command === \"BACKWARD\"){\n    payload = \"motor:-0.8,-0.8\";\n}\nif( command === \"FORWARD\"){\n    payload = \"motor:0.8,0.8\";\n}\n\nlet bot = flow.get(\"bot\");\nif (bot !== \"MANUAL\"){\n    payload = \"motor:0,0\";\n}\nmsg.payload = payload;\nreturn msg;",
+        "func": "let command = msg.payload;\nlet payload = \"\";\n\nif (command.startsWith(\"motor:\") === true){\n    payload = command\n}\nif(command === \"STOP\"){\n    payload = \"motor:0,0\";\n}\nif( command === \"BACKWARD\"){\n    payload = \"motor:-0.8,-0.8\";\n}\nif( command === \"FORWARD\"){\n    payload = \"motor:0.8,0.8\";\n}\n\nlet bot = global.get(\"bot\");\nif (bot !== \"MANUAL\"){\n    payload = \"motor:0,0\";\n}\nmsg.payload = payload;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1517,7 +1517,7 @@
         "type": "function",
         "z": "64e29ca1.f521a4",
         "name": "BotModeSet",
-        "func": "let mode = msg.payload;\nlet bot = flow.get(\"bot\");\n\nif (bot !== \"OFF\"){\n    flow.set(\"bot\", mode);\n    return msg;\n}",
+        "func": "let mode = msg.payload;\nlet bot = global.get(\"bot\");\n\nif (bot !== \"OFF\"){\n    global.set(\"bot\", mode);\n    return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2570,7 +2570,7 @@
         "initialize": "",
         "finalize": "",
         "x": 1000,
-        "y": 380,
+        "y": 360,
         "wires": [
             [
                 "903e6d61.21b768"
@@ -2738,29 +2738,11 @@
         ]
     },
     {
-        "id": "8efd8fcf.eb578",
-        "type": "debug",
-        "z": "39299706.687348",
-        "name": "RobotControl",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 835,
-        "y": 620,
-        "wires": [],
-        "l": false
-    },
-    {
         "id": "34266d1c.ff00d2",
         "type": "function",
         "z": "39299706.687348",
         "name": "RobotControl",
-        "func": "let position = msg.payload;\nconsole.log(\"RC input:\" + position);\nmsg.payload = null;\n\nlet bot = flow.get(\"bot\");\n\nif (bot === \"OFF\"){\n    return;\n}\nif (position === \"0,0,0\"){\n    return;\n}\n\n// screen is 640x480\nlet center_h = 320;\nlet center_v = 240;\nlet tolerance = 20;\n//\nlet postions = position.split(\",\");\n\nlet pos_h = postions[0];\nif (pos_h > center_h + tolerance){\n    msg.payload = \"turn_right\";\n}\nif (pos_h < center_h - tolerance){\n    msg.payload = \"turn_left\";\n} \nif (pos_h >= center_h - tolerance &&\n    pos_h <= center_h + tolerance) {\n  msg.payload = \"forward\";\n}\n// if distance to low or 0 stop\nlet pos_dist = postions[2];\npos_dist = Math.floor(pos_dist);\nif (pos_dist <  40) {\n    msg.payload = \"stop\";\n}\nreturn msg;",
+        "func": "let position = msg.payload;\nconsole.log(\"RC input:\" + position);\nmsg.payload = null;\n\nlet bot = global.get(\"bot\");\n\nif (bot !== \"AUTOMATIC\"){\n    return;\n}\nif (position === \"0,0,0\"){\n    return;\n}\n\n// screen is 640x480\nlet center_h = 320;\nlet center_v = 240;\nlet tolerance = 20;\n//\nlet postions = position.split(\",\");\n\nlet pos_h = postions[0];\nif (pos_h > center_h + tolerance){\n    msg.payload = \"turn_right\";\n}\nif (pos_h < center_h - tolerance){\n    msg.payload = \"turn_left\";\n} \nif (pos_h >= center_h - tolerance &&\n    pos_h <= center_h + tolerance) {\n  msg.payload = \"forward\";\n}\n// if distance to low or 0 stop\nlet pos_dist = postions[2];\npos_dist = Math.floor(pos_dist);\nif (pos_dist <  40) {\n    msg.payload = \"stop\";\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2769,7 +2751,8 @@
         "y": 620,
         "wires": [
             [
-                "8efd8fcf.eb578"
+                "e6902772.608308",
+                "831d7ff.052138"
             ]
         ]
     },
@@ -2820,5 +2803,15 @@
             ]
         ],
         "l": false
+    },
+    {
+        "id": "740aa58b.0227dc",
+        "type": "comment",
+        "z": "39299706.687348",
+        "name": "handle manual mode if bot is off",
+        "info": "",
+        "x": 410,
+        "y": 520,
+        "wires": []
     }
 ]
