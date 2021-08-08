@@ -341,3 +341,7 @@ print_status """Run \`${bold}sudo apt-get install -y ${NODEPKG}${normal}\` to in
 
 ## Defer setup until we have the complete script
 setup
+
+## Do it all
+sudo apt-get install gcc g++ make
+sudo apt-get install -y nodejs
