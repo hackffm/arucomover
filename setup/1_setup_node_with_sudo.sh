@@ -345,3 +345,4 @@ setup
 ## Do it all
 sudo apt-get install gcc g++ make
 sudo apt-get install -y nodejs
+sudo npm install -g npm@next
