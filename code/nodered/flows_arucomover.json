@@ -1673,42 +1673,6 @@
         ]
     },
     {
-        "id": "4763c368.ed94cc",
-        "type": "ui_led",
-        "z": "64e29ca1.f521a4",
-        "order": 2,
-        "group": "c35f301d.e816a",
-        "width": 0,
-        "height": 0,
-        "label": "Base1 Alive",
-        "labelPlacement": "left",
-        "labelAlignment": "left",
-        "colorForValue": [
-            {
-                "color": "#ff0000",
-                "value": "false",
-                "valueType": "bool"
-            },
-            {
-                "color": "#008000",
-                "value": "true",
-                "valueType": "bool"
-            },
-            {
-                "color": "#808080",
-                "value": "grey",
-                "valueType": "str"
-            }
-        ],
-        "allowColorForValueInMessage": false,
-        "shape": "circle",
-        "showGlow": true,
-        "name": "Bas1 Alive",
-        "x": 910,
-        "y": 580,
-        "wires": []
-    },
-    {
         "id": "252d6c3d.10d0f4",
         "type": "function",
         "z": "64e29ca1.f521a4",
@@ -1737,7 +1701,6 @@
         "id": "b375dce1.1cea08",
         "type": "debug",
         "z": "64e29ca1.f521a4",
-        "d": true,
         "name": "FromBase1",
         "active": true,
         "tosidebar": true,
@@ -1810,42 +1773,6 @@
             ]
         ],
         "l": false
-    },
-    {
-        "id": "34f94088.c191f",
-        "type": "ui_led",
-        "z": "64e29ca1.f521a4",
-        "order": 1,
-        "group": "e4e957e7.f19a98",
-        "width": 0,
-        "height": 0,
-        "label": "Manual Mode",
-        "labelPlacement": "left",
-        "labelAlignment": "left",
-        "colorForValue": [
-            {
-                "color": "#ff0000",
-                "value": "AUTOMATIC",
-                "valueType": "str"
-            },
-            {
-                "color": "#008000",
-                "value": "MANUAL",
-                "valueType": "str"
-            },
-            {
-                "color": "#808080",
-                "value": "grey",
-                "valueType": "str"
-            }
-        ],
-        "allowColorForValueInMessage": false,
-        "shape": "circle",
-        "showGlow": true,
-        "name": "Manual Mode",
-        "x": 920,
-        "y": 200,
-        "wires": []
     },
     {
         "id": "bd9b73e5.0e6e48",
@@ -1959,175 +1886,6 @@
                 "46bc7a30.bc2b64"
             ]
         ]
-    },
-    {
-        "id": "129178f3.d467bf",
-        "type": "ui_led",
-        "z": "64e29ca1.f521a4",
-        "order": 6,
-        "group": "c35f301d.e816a",
-        "width": 0,
-        "height": 0,
-        "label": "BNO SYS Calibration",
-        "labelPlacement": "left",
-        "labelAlignment": "left",
-        "colorForValue": [
-            {
-                "color": "#ff0000",
-                "value": "0",
-                "valueType": "str"
-            },
-            {
-                "color": "#ffff00",
-                "value": "1",
-                "valueType": "str"
-            },
-            {
-                "color": "#f6b26e",
-                "value": "2",
-                "valueType": "str"
-            },
-            {
-                "color": "#008000",
-                "value": "3",
-                "valueType": "str"
-            },
-            {
-                "color": "#808080",
-                "value": "grey",
-                "valueType": "str"
-            }
-        ],
-        "allowColorForValueInMessage": false,
-        "shape": "circle",
-        "showGlow": true,
-        "name": "BNOSYSCalibration",
-        "x": 940,
-        "y": 740,
-        "wires": []
-    },
-    {
-        "id": "13493e62.b381d2",
-        "type": "ui_led",
-        "z": "64e29ca1.f521a4",
-        "order": 7,
-        "group": "c35f301d.e816a",
-        "width": 0,
-        "height": 0,
-        "label": "BNO Gyro Calibration",
-        "labelPlacement": "left",
-        "labelAlignment": "left",
-        "colorForValue": [
-            {
-                "color": "#ff0000",
-                "value": "0",
-                "valueType": "str"
-            },
-            {
-                "color": "#ffff00",
-                "value": "1",
-                "valueType": "str"
-            },
-            {
-                "color": "#008000",
-                "value": "3",
-                "valueType": "str"
-            },
-            {
-                "color": "#808080",
-                "value": "grey",
-                "valueType": "str"
-            }
-        ],
-        "allowColorForValueInMessage": false,
-        "shape": "circle",
-        "showGlow": true,
-        "name": "BNOGyroCalibration",
-        "x": 940,
-        "y": 780,
-        "wires": []
-    },
-    {
-        "id": "88a40647.040708",
-        "type": "ui_led",
-        "z": "64e29ca1.f521a4",
-        "order": 8,
-        "group": "c35f301d.e816a",
-        "width": 0,
-        "height": 0,
-        "label": "BNO Accel Calibration",
-        "labelPlacement": "left",
-        "labelAlignment": "left",
-        "colorForValue": [
-            {
-                "color": "#ff0000",
-                "value": "0",
-                "valueType": "str"
-            },
-            {
-                "color": "#ffff00",
-                "value": "1",
-                "valueType": "str"
-            },
-            {
-                "color": "#008000",
-                "value": "3",
-                "valueType": "str"
-            },
-            {
-                "color": "#808080",
-                "value": "grey",
-                "valueType": "str"
-            }
-        ],
-        "allowColorForValueInMessage": false,
-        "shape": "circle",
-        "showGlow": true,
-        "name": "BNOAccelCalibration",
-        "x": 940,
-        "y": 820,
-        "wires": []
-    },
-    {
-        "id": "46bc7a30.bc2b64",
-        "type": "ui_led",
-        "z": "64e29ca1.f521a4",
-        "order": 9,
-        "group": "c35f301d.e816a",
-        "width": 0,
-        "height": 0,
-        "label": "BNO Compass Calibration",
-        "labelPlacement": "left",
-        "labelAlignment": "left",
-        "colorForValue": [
-            {
-                "color": "#ff0000",
-                "value": "0",
-                "valueType": "str"
-            },
-            {
-                "color": "#ffff00",
-                "value": "1",
-                "valueType": "str"
-            },
-            {
-                "color": "#008000",
-                "value": "3",
-                "valueType": "str"
-            },
-            {
-                "color": "#808080",
-                "value": "grey",
-                "valueType": "str"
-            }
-        ],
-        "allowColorForValueInMessage": false,
-        "shape": "circle",
-        "showGlow": true,
-        "name": "BNOCompCalibration",
-        "x": 940,
-        "y": 860,
-        "wires": []
     },
     {
         "id": "db53fee1.84717",
@@ -2342,42 +2100,6 @@
                 "81d0e89e.a4aac"
             ]
         ]
-    },
-    {
-        "id": "9ddd9520.f9b4e8",
-        "type": "ui_led",
-        "z": "64e29ca1.f521a4",
-        "order": 3,
-        "group": "4704b750.872a5",
-        "width": 0,
-        "height": 0,
-        "label": "Arcuro Detected",
-        "labelPlacement": "left",
-        "labelAlignment": "left",
-        "colorForValue": [
-            {
-                "color": "#ff0000",
-                "value": "false",
-                "valueType": "bool"
-            },
-            {
-                "color": "#008000",
-                "value": "true",
-                "valueType": "bool"
-            },
-            {
-                "color": "#808080",
-                "value": "grey",
-                "valueType": "str"
-            }
-        ],
-        "allowColorForValueInMessage": false,
-        "shape": "circle",
-        "showGlow": true,
-        "name": "ArucoDetected",
-        "x": 920,
-        "y": 60,
-        "wires": []
     },
     {
         "id": "eb977b42.350ba",
@@ -2789,7 +2511,6 @@
         "noerr": 0,
         "initialize": "",
         "finalize": "",
-        "libs": [],
         "x": 770,
         "y": 580,
         "wires": [
@@ -2797,5 +2518,282 @@
                 "e6902772.608308"
             ]
         ]
+    },
+    {
+        "id": "4763c368.ed94cc",
+        "type": "ui_led",
+        "z": "64e29ca1.f521a4",
+        "order": 2,
+        "group": "c35f301d.e816a",
+        "width": 0,
+        "height": 0,
+        "label": "Base1 Alive",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "color": "#808080",
+                "value": "grey",
+                "valueType": "str"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "Bas1 Alive",
+        "x": 910,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "34f94088.c191f",
+        "type": "ui_led",
+        "z": "64e29ca1.f521a4",
+        "order": 1,
+        "group": "e4e957e7.f19a98",
+        "width": 0,
+        "height": 0,
+        "label": "Manual Mode",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "AUTOMATIC",
+                "valueType": "str"
+            },
+            {
+                "color": "#008000",
+                "value": "MANUAL",
+                "valueType": "str"
+            },
+            {
+                "color": "#808080",
+                "value": "grey",
+                "valueType": "str"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "Manual Mode",
+        "x": 920,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "129178f3.d467bf",
+        "type": "ui_led",
+        "z": "64e29ca1.f521a4",
+        "order": 6,
+        "group": "c35f301d.e816a",
+        "width": 0,
+        "height": 0,
+        "label": "BNO SYS Calibration",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "0",
+                "valueType": "str"
+            },
+            {
+                "color": "#ffff00",
+                "value": "1",
+                "valueType": "str"
+            },
+            {
+                "color": "#f6b26e",
+                "value": "2",
+                "valueType": "str"
+            },
+            {
+                "color": "#008000",
+                "value": "3",
+                "valueType": "str"
+            },
+            {
+                "color": "#808080",
+                "value": "grey",
+                "valueType": "str"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "BNOSYSCalibration",
+        "x": 940,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "13493e62.b381d2",
+        "type": "ui_led",
+        "z": "64e29ca1.f521a4",
+        "order": 7,
+        "group": "c35f301d.e816a",
+        "width": 0,
+        "height": 0,
+        "label": "BNO Gyro Calibration",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "0",
+                "valueType": "str"
+            },
+            {
+                "color": "#ffff00",
+                "value": "1",
+                "valueType": "str"
+            },
+            {
+                "color": "#008000",
+                "value": "3",
+                "valueType": "str"
+            },
+            {
+                "color": "#808080",
+                "value": "grey",
+                "valueType": "str"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "BNOGyroCalibration",
+        "x": 940,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "88a40647.040708",
+        "type": "ui_led",
+        "z": "64e29ca1.f521a4",
+        "order": 8,
+        "group": "c35f301d.e816a",
+        "width": 0,
+        "height": 0,
+        "label": "BNO Accel Calibration",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "0",
+                "valueType": "str"
+            },
+            {
+                "color": "#ffff00",
+                "value": "1",
+                "valueType": "str"
+            },
+            {
+                "color": "#008000",
+                "value": "3",
+                "valueType": "str"
+            },
+            {
+                "color": "#808080",
+                "value": "grey",
+                "valueType": "str"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "BNOAccelCalibration",
+        "x": 940,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "46bc7a30.bc2b64",
+        "type": "ui_led",
+        "z": "64e29ca1.f521a4",
+        "order": 9,
+        "group": "c35f301d.e816a",
+        "width": 0,
+        "height": 0,
+        "label": "BNO Compass Calibration",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "0",
+                "valueType": "str"
+            },
+            {
+                "color": "#ffff00",
+                "value": "1",
+                "valueType": "str"
+            },
+            {
+                "color": "#008000",
+                "value": "3",
+                "valueType": "str"
+            },
+            {
+                "color": "#808080",
+                "value": "grey",
+                "valueType": "str"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "BNOCompCalibration",
+        "x": 940,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "9ddd9520.f9b4e8",
+        "type": "ui_led",
+        "z": "64e29ca1.f521a4",
+        "order": 3,
+        "group": "4704b750.872a5",
+        "width": 0,
+        "height": 0,
+        "label": "Arcuro Detected",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "color": "#808080",
+                "value": "grey",
+                "valueType": "str"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "ArucoDetected",
+        "x": 920,
+        "y": 60,
+        "wires": []
     }
 ]
