@@ -43,12 +43,13 @@ def log(text):
 
 def shared_memory_array(name_additional, hight, width):
     _name = 'shm_' + name_additional
-    a = np.random.rand(hight, width)
+    np_array = np.random.rand(hight, width)
+    #we don't know if this is restarted if shm already exists
     try:
-        shm = shared_memory.SharedMemory(name=_name, create=True, size=a.nbytes)
+        shm = shared_memory.SharedMemory(name=_name, create=True, size=np_array.nbytes)
         return [_name, shm]
     except FileExistsError:
-        shm = shared_memory.SharedMemory(name=_name, create=False, size=a.nbytes)
+        shm = shared_memory.SharedMemory(name=_name, create=False, size=np_array.nbytes)
         return [_name, shm]
     except Exception as shm_e:
         log('Error:' + str(shm_e))
