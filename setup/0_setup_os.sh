@@ -1,4 +1,5 @@
-sudo apt install --yes libatlas3-base libwebp6 libtiff5 libjasper1 libilmbase23 libopenexr23 
+sudo apt update;sudo apt dist-upgrade -y;sudo apt autoremove -y;sudo apt autoclean -y
+sudo apt install --yes libatlas3-base libwebp6 libtiff5 libjasper1 libilmbase23 libopenexr23
 sudo apt install --yes libgstreamer1.0-0 libavcodec58 libavformat58 libavutil56
 sudo apt install --yes libswscale5 libgtk-3-0 libpangocairo-1.0-0 libpango-1.0-0 libatk1.0-0 
 sudo apt install --yes libcairo-gobject2 libcairo2 libgdk-pixbuf2.0-0
