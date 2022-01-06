@@ -3,7 +3,7 @@ module.exports = {
     mqttReconnectTime: 15000,
     serialReconnectTime: 15000,
     debugMaxLength: 1000,
-    flowFile: 'flows_mmMover2020_03.json',
+    flowFile: 'flows_arucomover.json',
     flowFilePretty: true,
     functionGlobalContext: {
     },
