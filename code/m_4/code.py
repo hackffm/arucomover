@@ -5,6 +5,8 @@ import supervisor
 import sys
 import time
 
+import adafruit_bh1750
+import adafruit_bme680
 import adafruit_bno055
 from adafruit_motorkit import MotorKit
 from digitalio import DigitalInOut, Direction, Pull
@@ -16,15 +18,23 @@ kit = MotorKit()
 
 #
 led_cycle = 65535
-led_green = pulseio.PWMOut(board.D7, frequency=5000, duty_cycle=0)
-led_red = pulseio.PWMOut(board.D9, frequency=5000, duty_cycle=0)
+#led_green = pulseio.PWMOut(board.D7, frequency=5000, duty_cycle=0)
+#led_red = pulseio.PWMOut(board.D9, frequency=5000, duty_cycle=0)
+
 
 led_13 = DigitalInOut(board.D13)
 led_13.direction = Direction.OUTPUT
 
-# sensor BNO055
-sensor = adafruit_bno055.BNO055_I2C(i2c)
-sensors = ["acceleration","calibration_status","euler","gravity","gyro","heading",
+# sensor bh1750 light
+sensor_bh1750 = adafruit_bh1750.BH1750(i2c)
+
+# sensor bme680 air
+sensor_bme680 = adafruit_bme680.Adafruit_BME680_I2C(i2c)
+sensors_bme680 = ["gas", "humidity", "pressure", "temperature"]
+
+# sensor BNO055 IMU
+sensor_bno055 = adafruit_bno055.BNO055_I2C(i2c)
+sensors_bno055 = ["acceleration","calibration_status","euler","gravity","gyro","heading",
         "linear_acceleration","magnetic","quaternion","temperature"]
 
 # btm01
@@ -163,23 +173,38 @@ def cmd_motor(arg):
     print(module_name + str(state_motor))
     return # cmd_motor
 
+def cmd_sensor_bh1750(arg):
+    module_name = node_name + ':sensor_bh1750:'
+    print(module_name + "Light:%.2f" % sensor_bh1750.lux)
 
-def cmd_sensors(arg):
+def cmd_bme680(arg):
     arg = arg.lower()
-    module_name = node_name + ':sensors:'
-    if arg in sensors:
-        result = getattr(sensor, arg)
+    module_name = node_name + ':sensor_bme680:'
+    if arg in sensors_bme680:
+        result = getattr(sensor_bme680, arg)
+        print("sensor_bme680:" + arg + ":" + str(result))
+    if arg == "p":
+        print(module_name + 'Temperature:{}'.format(sensor_bme680.temperature))
+        print(module_name + 'Gas:{}'.format(sensor_bme680.gas))
+        print(module_name + 'Humidity:{}'.format(sensor_bme680.humidity))
+        print(module_name + 'Pressure:{}'.format(sensor_bme680.pressure))
+
+def cmd_sensor_bno055(arg):
+    arg = arg.lower()
+    module_name = node_name + ':sensor_bno055:'
+    if arg in sensors_bno055:
+        result = getattr(sensor_bno055, arg)
         print(module_name + arg + ":" + str(result))
     if arg == "p":
-        print(module_name + "accelerometer:{}".format(sensor.acceleration))
-        print(module_name + "CalibrationStatus:{}".format(sensor.calibration_status))
-        print(module_name + "euler:{}".format(sensor.euler))
-        print(module_name + "gravity:{}".format(sensor.gravity))
-        print(module_name + "gyroscope:{}".format(sensor.gyro))
-        print(module_name + "acceleration:{}".format(sensor.linear_acceleration))
-        print(module_name + "magnetometer:{}".format(sensor.magnetic))
-        print(module_name + "quaternion:{}".format(sensor.quaternion))
-        print(module_name + "temperature:{} degrees C".format(sensor.temperature))
+        print(module_name + "accelerometer:{}".format(sensor_bno055.acceleration))
+        print(module_name + "CalibrationStatus:{}".format(sensor_bno055.calibration_status))
+        print(module_name + "euler:{}".format(sensor_bno055.euler))
+        print(module_name + "gravity:{}".format(sensor_bno055.gravity))
+        print(module_name + "gyroscope:{}".format(sensor_bno055.gyro))
+        print(module_name + "acceleration:{}".format(sensor_bno055.linear_acceleration))
+        print(module_name + "magnetometer:{}".format(sensor_bno055.magnetic))
+        print(module_name + "quaternion:{}".format(sensor_bno055.quaternion))
+        print(module_name + "temperature:{}".format(sensor_bno055.temperature))
     return
 
 
@@ -242,7 +267,9 @@ def cycle_check():
     if td > cycle_global:
         print(module_name + 'stop')
         cmd_stop(node_name)
-        cmd_sensors("p")
+        cmd_sensor_bh1750("p")
+        cmd_bme680("p")
+        cmd_sensor_bno055("p")
         cmd_temperature("")
         cycle_count = 0
     else:
@@ -256,7 +283,7 @@ def cycle_check():
 
 
 def euler_get_x():
-    se = str(sensor.euler)
+    se = str(sensor_bno055.euler)
     se = se.replace("(","")
     se = se.replace(")","")
     se = se.replace(" ","")
@@ -280,9 +307,9 @@ def limit_value(value):
 def motor_run(arg):
     global heading_current
     kit.motor4.throttle = arg[0]
-    led_red.duty_cycle = led_cycle
+    #led_red.duty_cycle = led_cycle
     kit.motor1.throttle = arg[1]
-    led_green.duty_cycle = led_cycle
+    #led_green.duty_cycle = led_cycle
     return
 
 
@@ -292,9 +319,9 @@ def motor_stop(arg):
         print(node_name + ':motor:stop')
     state_motor = [velocity_stop,velocity_stop]
     kit.motor4.throttle = 0
-    led_red.duty_cycle = 0
+    #led_red.duty_cycle = 0
     kit.motor1.throttle = 0
-    led_green.duty_cycle = 0
+    #led_green.duty_cycle = 0
 
 
 def serial_process_command(command):
@@ -346,7 +373,7 @@ if __name__ == '__main__':
       'logger': cmd_logger,
       'motor': cmd_motor,
       'stop': cmd_stop,
-      'sensors': cmd_sensors,
+      'sensor_bno055.': cmd_sensor_bno055,
       'temperature': cmd_temperature,
       'timer': cmd_timer,
       'uptime':cmd_uptime
