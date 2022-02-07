@@ -1,18 +1,30 @@
 {
-  "name": "red",
+  "name": "arucomover",
   "version": "1.2.2",
-  "description": "",
+  "description": "arucomover",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hackffm/arucomover.git"
+  },
+  "keywords": [
+    "robot",
+    "aruco"
+  ],
+  "author": "vkuehn",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hackffm/arucomover/issues"
+  },
+  "homepage": "https://github.com/hackffm/arucomover#readme",
   "dependencies": {
     "node-red": "^2.2.0",
     "node-red-contrib-ui-joystick": "^1.0.0",
-    "node-red-contrib-ui-led": "^0.4.9",
-    "node-red-dashboard": "^2.28.1",
-    "node-red-node-serialport": "^0.13.0"
+    "node-red-contrib-ui-led": "^0.4.11",
+    "node-red-dashboard": "^3.1.5",
+    "node-red-node-serialport": "^0.15.0"
   }
 }

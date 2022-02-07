@@ -167,25 +167,6 @@
         "collapse": false
     },
     {
-        "id": "4197f4f3.d2b704",
-        "type": "serial-port",
-        "serialport": "/dev/ttyACM0",
-        "serialbaud": "115200",
-        "databits": "8",
-        "parity": "none",
-        "stopbits": "1",
-        "waitfor": "",
-        "dtr": "none",
-        "rts": "none",
-        "cts": "none",
-        "dsr": "none",
-        "newline": "\\n",
-        "bin": "false",
-        "out": "char",
-        "addchar": "\\n",
-        "responsetimeout": "10000"
-    },
-    {
         "id": "c35f301d.e816a",
         "type": "ui_group",
         "name": "Base1",
@@ -320,6 +301,25 @@
         "order": 17,
         "width": 2,
         "height": 1
+    },
+    {
+        "id": "c20899c75774402d",
+        "type": "serial-port",
+        "serialport": "/dev/ttyACM0",
+        "serialbaud": "115200",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
     },
     {
         "id": "62f223a3.5c362c",
@@ -801,7 +801,7 @@
         "wires": [
             [
                 "bd922a74.7c3b68",
-                "4c0f230f.32a3a4"
+                "15498e196087ff80"
             ]
         ],
         "l": false
@@ -1149,16 +1149,6 @@
         ]
     },
     {
-        "id": "4c0f230f.32a3a4",
-        "type": "serial out",
-        "z": "39299706.687348",
-        "name": "",
-        "serial": "4197f4f3.d2b704",
-        "x": 1300,
-        "y": 260,
-        "wires": []
-    },
-    {
         "id": "9a8ca686.343be8",
         "type": "inject",
         "z": "39299706.687348",
@@ -1262,6 +1252,7 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
+        "outputs": 1,
         "x": 795,
         "y": 140,
         "wires": [
@@ -1373,6 +1364,7 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
+        "outputs": 1,
         "x": 875,
         "y": 200,
         "wires": [
@@ -1410,6 +1402,166 @@
                 "903e6d61.21b768"
             ]
         ]
+    },
+    {
+        "id": "e6902772.608308",
+        "type": "function",
+        "z": "39299706.687348",
+        "name": "base:direction",
+        "func": "direction = msg.payload;\nmsg.payload = \"base:\" + direction;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1000,
+        "y": 360,
+        "wires": [
+            [
+                "903e6d61.21b768"
+            ]
+        ]
+    },
+    {
+        "id": "b3bc9fd.db1cf6",
+        "type": "inject",
+        "z": "39299706.687348",
+        "name": "uptime",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "uptime",
+        "payloadType": "str",
+        "x": 1030,
+        "y": 660,
+        "wires": [
+            [
+                "903e6d61.21b768"
+            ]
+        ]
+    },
+    {
+        "id": "6227b034.6358f",
+        "type": "link in",
+        "z": "39299706.687348",
+        "name": "ArucoPositionRecieve",
+        "links": [
+            "81d0e89e.a4aac"
+        ],
+        "x": 315,
+        "y": 660,
+        "wires": [
+            [
+                "34266d1c.ff00d2"
+            ]
+        ]
+    },
+    {
+        "id": "34266d1c.ff00d2",
+        "type": "function",
+        "z": "39299706.687348",
+        "name": "RobotControl",
+        "func": "let position = msg.payload;\nconsole.log(\"RC input:\" + position);\nmsg.payload = null;\n\nlet bot = global.get(\"bot\");\n\nif (bot !== \"AUTOMATIC\"){\n    return;\n}\nif (position === \"0,0,0\"){\n    return;\n}\n\n// screen is 640x480\nlet center_h = 320;\nlet center_v = 240;\nlet tolerance = 20;\n//\nlet postions = position.split(\",\");\n\nlet pos_h = postions[0];\nif (pos_h > center_h + tolerance){\n    msg.payload = \"turn_right\";\n}\nif (pos_h < center_h - tolerance){\n    msg.payload = \"turn_left\";\n} \nif (pos_h >= center_h - tolerance &&\n    pos_h <= center_h + tolerance) {\n  msg.payload = \"forward\";\n}\n// if distance to low or 0 stop\nlet pos_dist = postions[2];\npos_dist = Math.floor(pos_dist);\nif (pos_dist <  40) {\n    msg.payload = \"stop\";\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 430,
+        "y": 660,
+        "wires": [
+            [
+                "831d7ff.052138",
+                "e3e100ac.e8c5c8"
+            ]
+        ]
+    },
+    {
+        "id": "b1b9f827.2f4dc",
+        "type": "delay",
+        "z": "39299706.687348",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "outputs": 1,
+        "x": 575,
+        "y": 520,
+        "wires": [
+            [
+                "beea2a70.635df8"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "831d7ff.052138",
+        "type": "delay",
+        "z": "39299706.687348",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "200",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "outputs": 1,
+        "x": 575,
+        "y": 580,
+        "wires": [
+            [
+                "beea2a70.635df8"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "e3e100ac.e8c5c8",
+        "type": "function",
+        "z": "39299706.687348",
+        "name": "Off?",
+        "func": "let bot = global.get(\"bot\");\nif (bot !== \"OFF\"){\n    return msg\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 770,
+        "y": 580,
+        "wires": [
+            [
+                "e6902772.608308"
+            ]
+        ]
+    },
+    {
+        "id": "15498e196087ff80",
+        "type": "serial out",
+        "z": "39299706.687348",
+        "name": "",
+        "serial": "c20899c75774402d",
+        "x": 1320,
+        "y": 260,
+        "wires": []
     },
     {
         "id": "ca13b1f7.5e74c",
@@ -1507,21 +1659,6 @@
         ]
     },
     {
-        "id": "c4d9c6e6.8ce03",
-        "type": "serial in",
-        "z": "64e29ca1.f521a4",
-        "name": "",
-        "serial": "4197f4f3.d2b704",
-        "x": 150,
-        "y": 640,
-        "wires": [
-            [
-                "f605058a.b61f3",
-                "b375dce1.1cea08"
-            ]
-        ]
-    },
-    {
         "id": "f605058a.b61f3",
         "type": "switch",
         "z": "64e29ca1.f521a4",
@@ -1551,17 +1688,17 @@
             },
             {
                 "t": "cont",
-                "v": "base1:sensors:temperature:",
+                "v": "base1:sensors_bno055:temperature:",
                 "vt": "str"
             },
             {
                 "t": "cont",
-                "v": "base1:sensors:CalibrationStatus:",
+                "v": "base1:sensors_bno055:CalibrationStatus:",
                 "vt": "str"
             },
             {
                 "t": "cont",
-                "v": "base1:sensors:euler:",
+                "v": "base1:sensors_bno055:euler:",
                 "vt": "str"
             }
         ],
@@ -2257,53 +2394,6 @@
         "wires": []
     },
     {
-        "id": "e6902772.608308",
-        "type": "function",
-        "z": "39299706.687348",
-        "name": "base:direction",
-        "func": "direction = msg.payload;\nmsg.payload = \"base:\" + direction;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "x": 1000,
-        "y": 360,
-        "wires": [
-            [
-                "903e6d61.21b768"
-            ]
-        ]
-    },
-    {
-        "id": "b3bc9fd.db1cf6",
-        "type": "inject",
-        "z": "39299706.687348",
-        "name": "uptime",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "uptime",
-        "payloadType": "str",
-        "x": 1030,
-        "y": 660,
-        "wires": [
-            [
-                "903e6d61.21b768"
-            ]
-        ]
-    },
-    {
         "id": "bf475cf4.df35d",
         "type": "trigger",
         "z": "64e29ca1.f521a4",
@@ -2417,107 +2507,6 @@
         "x": 585,
         "y": 180,
         "wires": []
-    },
-    {
-        "id": "6227b034.6358f",
-        "type": "link in",
-        "z": "39299706.687348",
-        "name": "ArucoPositionRecieve",
-        "links": [
-            "81d0e89e.a4aac"
-        ],
-        "x": 315,
-        "y": 660,
-        "wires": [
-            [
-                "34266d1c.ff00d2"
-            ]
-        ]
-    },
-    {
-        "id": "34266d1c.ff00d2",
-        "type": "function",
-        "z": "39299706.687348",
-        "name": "RobotControl",
-        "func": "let position = msg.payload;\nconsole.log(\"RC input:\" + position);\nmsg.payload = null;\n\nlet bot = global.get(\"bot\");\n\nif (bot !== \"AUTOMATIC\"){\n    return;\n}\nif (position === \"0,0,0\"){\n    return;\n}\n\n// screen is 640x480\nlet center_h = 320;\nlet center_v = 240;\nlet tolerance = 20;\n//\nlet postions = position.split(\",\");\n\nlet pos_h = postions[0];\nif (pos_h > center_h + tolerance){\n    msg.payload = \"turn_right\";\n}\nif (pos_h < center_h - tolerance){\n    msg.payload = \"turn_left\";\n} \nif (pos_h >= center_h - tolerance &&\n    pos_h <= center_h + tolerance) {\n  msg.payload = \"forward\";\n}\n// if distance to low or 0 stop\nlet pos_dist = postions[2];\npos_dist = Math.floor(pos_dist);\nif (pos_dist <  40) {\n    msg.payload = \"stop\";\n}\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "x": 430,
-        "y": 660,
-        "wires": [
-            [
-                "831d7ff.052138",
-                "e3e100ac.e8c5c8"
-            ]
-        ]
-    },
-    {
-        "id": "b1b9f827.2f4dc",
-        "type": "delay",
-        "z": "39299706.687348",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "1",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 575,
-        "y": 520,
-        "wires": [
-            [
-                "beea2a70.635df8"
-            ]
-        ],
-        "l": false
-    },
-    {
-        "id": "831d7ff.052138",
-        "type": "delay",
-        "z": "39299706.687348",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "200",
-        "timeoutUnits": "milliseconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 575,
-        "y": 580,
-        "wires": [
-            [
-                "beea2a70.635df8"
-            ]
-        ],
-        "l": false
-    },
-    {
-        "id": "e3e100ac.e8c5c8",
-        "type": "function",
-        "z": "39299706.687348",
-        "name": "Off?",
-        "func": "let bot = global.get(\"bot\");\nif (bot !== \"OFF\"){\n    return msg\n}\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "x": 770,
-        "y": 580,
-        "wires": [
-            [
-                "e6902772.608308"
-            ]
-        ]
     },
     {
         "id": "4763c368.ed94cc",
@@ -2795,5 +2784,20 @@
         "x": 920,
         "y": 60,
         "wires": []
+    },
+    {
+        "id": "45eae827653839e7",
+        "type": "serial in",
+        "z": "64e29ca1.f521a4",
+        "name": "",
+        "serial": "c20899c75774402d",
+        "x": 210,
+        "y": 560,
+        "wires": [
+            [
+                "b375dce1.1cea08",
+                "f605058a.b61f3"
+            ]
+        ]
     }
 ]
