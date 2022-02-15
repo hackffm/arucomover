@@ -174,15 +174,15 @@ def cmd_motor(arg):
     return # cmd_motor
 
 def cmd_sensor_bh1750(arg):
-    module_name = node_name + ':sensor_bh1750:'
+    module_name = node_name + ':bh1750:'
     print(module_name + "Light:%.2f" % sensor_bh1750.lux)
 
 def cmd_bme680(arg):
     arg = arg.lower()
-    module_name = node_name + ':sensor_bme680:'
+    module_name = node_name + ':bme680:'
     if arg in sensors_bme680:
         result = getattr(sensor_bme680, arg)
-        print("sensor_bme680:" + arg + ":" + str(result))
+        print(module_name + arg + ":" + str(result))
     if arg == "p":
         print(module_name + 'Temperature:{}'.format(sensor_bme680.temperature))
         print(module_name + 'Gas:{}'.format(sensor_bme680.gas))
@@ -191,7 +191,7 @@ def cmd_bme680(arg):
 
 def cmd_sensor_bno055(arg):
     arg = arg.lower()
-    module_name = node_name + ':sensor_bno055:'
+    module_name = node_name + ':bno055:'
     if arg in sensors_bno055:
         result = getattr(sensor_bno055, arg)
         print(module_name + arg + ":" + str(result))

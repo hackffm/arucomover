@@ -22,7 +22,7 @@
     {
         "id": "a9a5d43f.2aaaf8",
         "type": "ui_tab",
-        "name": "Mover",
+        "name": "Control",
         "icon": "dashboard",
         "disabled": false,
         "hidden": false
@@ -102,7 +102,8 @@
                 "primary": "indigo",
                 "accents": "blue",
                 "warn": "red",
-                "background": "grey"
+                "background": "grey",
+                "palette": "light"
             }
         },
         "site": {
@@ -320,6 +321,48 @@
         "out": "char",
         "addchar": "",
         "responsetimeout": "10000"
+    },
+    {
+        "id": "c752bd967c248467",
+        "type": "ui_group",
+        "name": "BNO055",
+        "tab": "42cb68331e590621",
+        "order": 5,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "149e9303135f6321",
+        "type": "ui_group",
+        "name": "bme680",
+        "tab": "42cb68331e590621",
+        "order": 6,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "42cb68331e590621",
+        "type": "ui_tab",
+        "name": "Sensors",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "09b7472253412d07",
+        "type": "ui_group",
+        "name": "bh1750",
+        "tab": "42cb68331e590621",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
     },
     {
         "id": "62f223a3.5c362c",
@@ -1662,7 +1705,7 @@
         "id": "f605058a.b61f3",
         "type": "switch",
         "z": "64e29ca1.f521a4",
-        "name": "HandleBase1Messages",
+        "name": "Base1Messages",
         "property": "payload",
         "propertyType": "msg",
         "rules": [
@@ -1688,24 +1731,24 @@
             },
             {
                 "t": "cont",
-                "v": "base1:sensors_bno055:temperature:",
+                "v": "base1:bno055:temperature:",
                 "vt": "str"
             },
             {
                 "t": "cont",
-                "v": "base1:sensors_bno055:CalibrationStatus:",
+                "v": "base1:bno055:CalibrationStatus:",
                 "vt": "str"
             },
             {
                 "t": "cont",
-                "v": "base1:sensors_bno055:euler:",
+                "v": "base1:bno055:euler:",
                 "vt": "str"
             }
         ],
         "checkall": "true",
         "repair": false,
         "outputs": 7,
-        "x": 430,
+        "x": 400,
         "y": 640,
         "wires": [
             [
@@ -1736,7 +1779,7 @@
         "type": "ui_gauge",
         "z": "64e29ca1.f521a4",
         "name": "BNO055Temp",
-        "group": "c35f301d.e816a",
+        "group": "c752bd967c248467",
         "order": 5,
         "width": 0,
         "height": 0,
@@ -1745,14 +1788,15 @@
         "label": "Celsius",
         "format": "{{value}}",
         "min": "-20",
-        "max": "60",
+        "max": "70",
         "colors": [
             "#005fb5",
             "#03e600",
             "#ca3838"
         ],
         "seg1": "20",
-        "seg2": "35",
+        "seg2": "40",
+        "className": "",
         "x": 920,
         "y": 700,
         "wires": []
@@ -1801,6 +1845,7 @@
         "noerr": 0,
         "initialize": "",
         "finalize": "",
+        "libs": [],
         "x": 700,
         "y": 620,
         "wires": [
@@ -1839,7 +1884,7 @@
         "type": "debug",
         "z": "64e29ca1.f521a4",
         "name": "FromBase1",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1985,7 +2030,7 @@
         "label": "Celsius",
         "format": "{{value}}",
         "min": 0,
-        "max": "120",
+        "max": "70",
         "colors": [
             "#00b500",
             "#e6e600",
@@ -1993,6 +2038,7 @@
         ],
         "seg1": "40",
         "seg2": "60",
+        "className": "",
         "x": 920,
         "y": 420,
         "wires": []
@@ -2007,6 +2053,7 @@
         "noerr": 0,
         "initialize": "",
         "finalize": "",
+        "libs": [],
         "x": 710,
         "y": 760,
         "wires": [
@@ -2474,14 +2521,14 @@
         "id": "992a8d40.1f8d3",
         "type": "ui_gauge",
         "z": "64e29ca1.f521a4",
-        "name": "CpuTempGauge",
+        "name": "CpuLoad",
         "group": "f3ec3b5e.abf7a",
         "order": 9,
         "width": 0,
         "height": 0,
         "gtype": "gage",
         "title": "CPU Load",
-        "label": "Celsius",
+        "label": "Load",
         "format": "{{value}}",
         "min": 0,
         "max": "100",
@@ -2492,7 +2539,8 @@
         ],
         "seg1": "40",
         "seg2": "60",
-        "x": 920,
+        "className": "",
+        "x": 900,
         "y": 480,
         "wires": []
     },
@@ -2585,7 +2633,7 @@
         "type": "ui_led",
         "z": "64e29ca1.f521a4",
         "order": 6,
-        "group": "c35f301d.e816a",
+        "group": "c752bd967c248467",
         "width": 0,
         "height": 0,
         "label": "BNO SYS Calibration",
@@ -2593,7 +2641,7 @@
         "labelAlignment": "left",
         "colorForValue": [
             {
-                "color": "#ff0000",
+                "color": "#008000",
                 "value": "0",
                 "valueType": "str"
             },
@@ -2603,12 +2651,7 @@
                 "valueType": "str"
             },
             {
-                "color": "#f6b26e",
-                "value": "2",
-                "valueType": "str"
-            },
-            {
-                "color": "#008000",
+                "color": "#ff0000",
                 "value": "3",
                 "valueType": "str"
             },
@@ -2631,7 +2674,7 @@
         "type": "ui_led",
         "z": "64e29ca1.f521a4",
         "order": 7,
-        "group": "c35f301d.e816a",
+        "group": "c752bd967c248467",
         "width": 0,
         "height": 0,
         "label": "BNO Gyro Calibration",
@@ -2672,7 +2715,7 @@
         "type": "ui_led",
         "z": "64e29ca1.f521a4",
         "order": 8,
-        "group": "c35f301d.e816a",
+        "group": "c752bd967c248467",
         "width": 0,
         "height": 0,
         "label": "BNO Accel Calibration",
@@ -2680,7 +2723,7 @@
         "labelAlignment": "left",
         "colorForValue": [
             {
-                "color": "#ff0000",
+                "color": "#008000",
                 "value": "0",
                 "valueType": "str"
             },
@@ -2690,7 +2733,7 @@
                 "valueType": "str"
             },
             {
-                "color": "#008000",
+                "color": "#ff0000",
                 "value": "3",
                 "valueType": "str"
             },
@@ -2713,7 +2756,7 @@
         "type": "ui_led",
         "z": "64e29ca1.f521a4",
         "order": 9,
-        "group": "c35f301d.e816a",
+        "group": "c752bd967c248467",
         "width": 0,
         "height": 0,
         "label": "BNO Compass Calibration",
@@ -2721,7 +2764,7 @@
         "labelAlignment": "left",
         "colorForValue": [
             {
-                "color": "#ff0000",
+                "color": "#008000",
                 "value": "0",
                 "valueType": "str"
             },
@@ -2731,7 +2774,7 @@
                 "valueType": "str"
             },
             {
-                "color": "#008000",
+                "color": "#ff0000",
                 "value": "3",
                 "valueType": "str"
             },
@@ -2796,7 +2839,265 @@
         "wires": [
             [
                 "b375dce1.1cea08",
-                "f605058a.b61f3"
+                "f605058a.b61f3",
+                "38bbac026743a6c0"
+            ]
+        ]
+    },
+    {
+        "id": "694751ba282320f1",
+        "type": "ui_text",
+        "z": "64e29ca1.f521a4",
+        "group": "149e9303135f6321",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "BME680Gas",
+        "label": "BME680 Gas",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 910,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "38bbac026743a6c0",
+        "type": "switch",
+        "z": "64e29ca1.f521a4",
+        "name": "base1Sensors",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "base1:bme680:Temperature:",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "base1:bme680:Humidity:",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "base1:bme680:Gas:",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "base1:bme680:Pressure:",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "base1:bh1750:Light:",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 5,
+        "x": 420,
+        "y": 1000,
+        "wires": [
+            [
+                "93f54d9f95531f07"
+            ],
+            [
+                "cd0dabe264f895fb"
+            ],
+            [
+                "ed7e2f48a286d0cb"
+            ],
+            [
+                "c5755334801c222f"
+            ],
+            [
+                "5468394c6fefa4dd"
+            ]
+        ]
+    },
+    {
+        "id": "17dae884b3bdddd5",
+        "type": "ui_gauge",
+        "z": "64e29ca1.f521a4",
+        "name": "BME680Temperature",
+        "group": "149e9303135f6321",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "BME680 Temperature",
+        "label": "Celsius",
+        "format": "{{value}}",
+        "min": "-10",
+        "max": "70",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "35",
+        "seg2": "55",
+        "className": "",
+        "x": 940,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "5a7fe31a0dc9bd5a",
+        "type": "ui_gauge",
+        "z": "64e29ca1.f521a4",
+        "name": "BME680Humid",
+        "group": "149e9303135f6321",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "BME680 Humidity",
+        "label": "Celsius",
+        "format": "{{value}}",
+        "min": "10",
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "40",
+        "seg2": "70",
+        "className": "",
+        "x": 920,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "93f54d9f95531f07",
+        "type": "function",
+        "z": "64e29ca1.f521a4",
+        "name": "BME680Temperature",
+        "func": "let message = msg.payload;\nlet values = message.split(\":\");\n\nlet info = values[2];\n\nif (info === \"Temperature\"){\n    msg.payload = Math.floor( values[3] );\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 940,
+        "wires": [
+            [
+                "17dae884b3bdddd5"
+            ]
+        ]
+    },
+    {
+        "id": "cd0dabe264f895fb",
+        "type": "function",
+        "z": "64e29ca1.f521a4",
+        "name": "BME680Humidity",
+        "func": "let message = msg.payload;\nlet values = message.split(\":\");\n\nlet info = values[2];\n\nif (info === \"Humidity\"){\n    msg.payload = Math.floor( values[3] );\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 980,
+        "wires": [
+            [
+                "5a7fe31a0dc9bd5a"
+            ]
+        ]
+    },
+    {
+        "id": "ed7e2f48a286d0cb",
+        "type": "function",
+        "z": "64e29ca1.f521a4",
+        "name": "BME680Gas",
+        "func": "let gas = msg.payload;\n\ngas = gas.split(\":\")[3];\nmsg.payload = gas;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 1020,
+        "wires": [
+            [
+                "694751ba282320f1"
+            ]
+        ]
+    },
+    {
+        "id": "9d3026c4f11613a3",
+        "type": "ui_text",
+        "z": "64e29ca1.f521a4",
+        "group": "149e9303135f6321",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "BME680Pressure",
+        "label": "BME680 Pressure",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 930,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "c5755334801c222f",
+        "type": "function",
+        "z": "64e29ca1.f521a4",
+        "name": "BME680Pressure",
+        "func": "let message = msg.payload;\nlet values = message.split(\":\");\n\nlet info = values[2];\n\nif (info === \"Pressure\"){\n    msg.payload = Math.floor( values[3] );\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 1060,
+        "wires": [
+            [
+                "9d3026c4f11613a3"
+            ]
+        ]
+    },
+    {
+        "id": "8401bd0dec3e92f5",
+        "type": "ui_text",
+        "z": "64e29ca1.f521a4",
+        "group": "09b7472253412d07",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "bh1750Light",
+        "label": "bh1750 Light",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 910,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "5468394c6fefa4dd",
+        "type": "function",
+        "z": "64e29ca1.f521a4",
+        "name": "bh1750Light",
+        "func": "let message = msg.payload;\nlet values = message.split(\":\");\n\nlet info = values[2];\n\nif (info === \"Light\"){\n    msg.payload = Math.floor( values[3] );\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 1100,
+        "wires": [
+            [
+                "8401bd0dec3e92f5"
             ]
         ]
     }
