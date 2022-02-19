@@ -1620,7 +1620,7 @@
         "raw": false,
         "topic": "",
         "name": "",
-        "x": 920,
+        "x": 930,
         "y": 360,
         "wires": []
     },
@@ -1726,28 +1726,13 @@
             },
             {
                 "t": "cont",
-                "v": "base1:temperature:",
-                "vt": "str"
-            },
-            {
-                "t": "cont",
-                "v": "base1:bno055:temperature:",
-                "vt": "str"
-            },
-            {
-                "t": "cont",
-                "v": "base1:bno055:CalibrationStatus:",
-                "vt": "str"
-            },
-            {
-                "t": "cont",
-                "v": "base1:bno055:euler:",
+                "v": "base1:temperatur:",
                 "vt": "str"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 7,
+        "outputs": 4,
         "x": 400,
         "y": 640,
         "wires": [
@@ -1762,15 +1747,6 @@
             ],
             [
                 "2acf453d.ab17ba"
-            ],
-            [
-                "90afaf22.bd92d"
-            ],
-            [
-                "3c9ddf7.a32b8a"
-            ],
-            [
-                "9e6f9c06.922088"
             ]
         ]
     },
@@ -2055,7 +2031,7 @@
         "finalize": "",
         "libs": [],
         "x": 710,
-        "y": 760,
+        "y": 800,
         "wires": [
             [
                 "129178f3.d467bf"
@@ -2871,6 +2847,21 @@
         "rules": [
             {
                 "t": "cont",
+                "v": "base1:bno055:temperature:",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "base1:bno055:CalibrationStatus:",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "base1:bno055:euler:",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
                 "v": "base1:bme680:Temperature:",
                 "vt": "str"
             },
@@ -2897,10 +2888,19 @@
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 5,
-        "x": 420,
-        "y": 1000,
+        "outputs": 8,
+        "x": 400,
+        "y": 740,
         "wires": [
+            [
+                "90afaf22.bd92d"
+            ],
+            [
+                "3c9ddf7.a32b8a"
+            ],
+            [
+                "9e6f9c06.922088"
+            ],
             [
                 "93f54d9f95531f07"
             ],
