@@ -44,7 +44,7 @@ def log(text):
 def shared_memory_array(name_additional, hight, width):
     _name = 'shm_' + name_additional
     np_array = np.random.rand(hight, width)
-    #we don't know if this is restarted if shm already exists
+    # we don't know if this is restarted if shm already exists
     try:
         shm = shared_memory.SharedMemory(name=_name, create=True, size=np_array.nbytes)
         return [_name, shm]
